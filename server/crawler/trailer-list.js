@@ -18,7 +18,7 @@ const sleep = time => new Promise(resolve => {
     await page.goto(url,{
         waitUntil: 'networkidle2'
     })
-
+ 
     await sleep(3000)
 
     await page.waitForSelector('.more')
@@ -54,6 +54,9 @@ const sleep = time => new Promise(resolve => {
     })
 
     browser.close()
+
+    process.send({result})
+    process.exit(0)
 
     console.log(result)
 })()
