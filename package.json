@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "koa": "^2.7.0",
+    "mongoose": "^5.4.14",
     "puppeteer": "^1.12.2",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7"
