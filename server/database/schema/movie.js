@@ -33,4 +33,15 @@ const MovieSchema = new Schema({
     }
 })
 
+/*更新时间*/ 
+MovieSchema.pre('save', next => {
+    if(this.isNew){
+        this.meta.createdAt = this.meta.updatedAt = Date.now()
+    }else{
+        this.meta.updatedAt = Data.now()
+    }
+
+    next()
+})
+
 mongoose.model('Movie', MovieSchema)
