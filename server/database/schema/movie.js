@@ -1,9 +1,19 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const Mixed = Schema.Types.Mixed
+const {ObjectId,Mixed} = Schema.Types.Mixed
 
 const MovieSchema = new Schema({
-    doubanId: String,
+
+    doubanId: {
+      unique: true,
+      type: String
+    },
+
+    category: [{
+      type: ObjectId,
+      ref: 'Category'
+    }],
+
     rate: Number,
     title: String,
     summary: String,
