@@ -14,6 +14,8 @@
   "author": "yxhong",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^3.0.4",
+    "bcryptjs": "^2.4.3",
     "glob": "^7.1.3",
     "koa": "^2.7.0",
     "mongoose": "^5.4.14",

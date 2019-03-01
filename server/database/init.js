@@ -6,8 +6,17 @@ const { resolve } = require('path')
 mongoose.Promise = global.Promise
 
 exports.initSchemas = () => {
-    glob.sync(resolve(__dirname,'./schema','**/*.js')).forEach(
-        resolve)
+
+var a = glob.sync(resolve(__dirname,'./schema','**/*.js'))
+
+    try{
+        glob.sync(resolve(__dirname,'./schema','**/*.js')).forEach(
+            require
+            )
+    }catch(err){
+        console.log(err)
+    }
+    
 }
 
 exports.connect = () => {

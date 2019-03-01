@@ -9,7 +9,7 @@ const CategorySchema = new Schema({
     },
     movies: [{
         type: ObjectId,
-        ref: 'Movie'
+        ref: 'movie'
     }],
     meta: {
       createdAt: {

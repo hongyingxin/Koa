@@ -9,10 +9,10 @@ const MovieSchema = new Schema({
       type: String
     },
 
-    category: [{
+    category: {
       type: ObjectId,
       ref: 'Category'
-    }],
+    },
 
     rate: Number,
     title: String,
@@ -44,7 +44,7 @@ const MovieSchema = new Schema({
 })
 
 /*更新时间*/ 
-MovieSchema.pre('save', next => {
+MovieSchema.pre('save', function(next) {
     if(this.isNew){
         this.meta.createdAt = this.meta.updatedAt = Date.now()
     }else{
@@ -54,4 +54,4 @@ MovieSchema.pre('save', next => {
     next()
 })
 
-mongoose.model('Movie', MovieSchema)
+mongoose.model('Movie', movieSchema)

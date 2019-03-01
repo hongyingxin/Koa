@@ -1,7 +1,7 @@
 const Koa = require('koa')
 const mongoose = require('mongoose')
 const app = new Koa();
-const { connect } = require('./database/init')
+const { connect ,initSchemas} = require('./database/init')
 // const { normal} = require('./tpl')
 
 
@@ -22,4 +22,4 @@ app.use(async (ctx,next) => {
     ctx.body = '测试'
 })
 
-app.listen(1000)
+app.listen(4444)

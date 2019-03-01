@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
 const Schema = mongoose.Schema
 const Mixed = Schema.Types.Mixed
 const SALT_WORK_FACTOR = 10
@@ -8,15 +9,22 @@ const LOCK_TIME = 2 * 60 *60 * 1000
 const UserSchema = new Schema({
     username: {
         unique: true,
+        required: true,
         type: String,
     },
     email: {
         unique: true,
+        required: true,
         type: String,
     },
     password: {
         unique: true,
         type: String,
+    },
+    loginAttempts: {
+        type:Number,
+        required: true,
+        default: 0
     },
     lockUntil: Number,
     meta: {
@@ -36,7 +44,7 @@ UserSchema.virtual('isLocked').get(() => {
 })
 
 /*更新时间*/ 
-MovieSchema.pre('save', next => {
+UserSchema.pre('save', function(next){
     if(this.isNew){
         this.meta.createdAt = this.meta.updatedAt = Date.now()
     }else{
@@ -46,9 +54,9 @@ MovieSchema.pre('save', next => {
     next()
 })
 
-/*盐加密*/ 
-UserSchema.pre('save', next => {
-    if(!user.isModified('password')){
+/*加盐加密*/ 
+UserSchema.pre('save', function(next){
+    if(!this.isModified('password')){
         return next();
     }
 
@@ -57,7 +65,7 @@ UserSchema.pre('save', next => {
             return next(err)
         }
 
-        bcrypt.hash(user.password,salt,(error,hash) => {
+        bcrypt.hash(this.password,salt,(error,hash) => {
             if(error){
                 return next(error)
             }
@@ -76,7 +84,7 @@ UserSchema.pre('save', next => {
     next()
 })
 
-UserSchema.method = {
+UserSchema.methods = {
     comparePassword: (_password,password) => {
         return new Promise((resolve,reject) => {
             bcrypt.compare(_password,password,(err,isMatch) => {
