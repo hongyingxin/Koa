@@ -10,11 +10,8 @@ const { connect ,initSchemas} = require('./database/init')
 
     initSchemas()
 
-    const Movie = mongoose.model('Movie')
-
-    const movies = await Movie.find({})
-
-    console.log(movies)
+    // require('./tasks/movie')
+    require('./tasks/api')
 })()
 
 app.use(async (ctx,next) => {
@@ -22,4 +19,4 @@ app.use(async (ctx,next) => {
     ctx.body = '测试'
 })
 
-app.listen(4444)
+app.listen(1313)
