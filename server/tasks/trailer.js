@@ -31,7 +31,9 @@ const { resolve } = require('path')
     })
 
     child.on('message',data => {
+        console.log("+++++++++++视频+++++++++++")
         console.log(data)
+        console.log("+++++++++++视频+++++++++++")
     })
 
 })()

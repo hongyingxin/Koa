@@ -2,6 +2,7 @@ const Koa = require('koa')
 const mongoose = require('mongoose')
 const app = new Koa();
 const { connect ,initSchemas} = require('./database/init')
+const router = require('./routes')
 // const { normal} = require('./tpl')
 
 
@@ -14,9 +15,13 @@ const { connect ,initSchemas} = require('./database/init')
     require('./tasks/api')
 })()
 
+app
+    .use(router.routes())
+    .use(router.allowedMethods())
+
 app.use(async (ctx,next) => {
     ctx.type = 'text/html; charset=utf-8'
     ctx.body = '测试'
 })
 
-app.listen(1313)
+app.listen(8765)

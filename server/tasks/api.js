@@ -4,7 +4,7 @@ const Movie = mongoose.model('Movie')
 const Category = mongoose.model('Category')
 
 async function fetchMovie(item){
-    const url = `http://api.douban.com/v2/movie/subject/${item.doubanId}`
+    const url = `http://api.douban.com/v2/movie/${item.doubanId}`
 
     const res = await rp(url)
 
@@ -30,12 +30,11 @@ async function fetchMovie(item){
         ]
     })
 
-    for(let i = 0; i < [movies[0]].length;i++){
+
+    for(let i = 0; i < movies.length;i++){
         let movie = movies[i]
         let movieDate = await fetchMovie(movie)
 
-        console.log("+9+")
-        console.log(movieDate)
 
         if(movieDate){
             let tags = movieDate.tags || []
@@ -88,7 +87,7 @@ async function fetchMovie(item){
                         let country = '未知'
 
                         if(parts[1]){
-                            country = parent[1].split(')')[0]
+                            country = parts[1].split(')')[0]
                         }
 
                         pubdate.push({
