@@ -15,9 +15,6 @@ const router = require('./routes')
     require('./tasks/api')
 })()
 
-app
-    .use(router.routes())
-    .use(router.allowedMethods())
 
 app.use(async (ctx,next) => {
     ctx.type = 'text/html; charset=utf-8'
