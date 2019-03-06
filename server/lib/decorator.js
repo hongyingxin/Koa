@@ -58,30 +58,30 @@ const controller = path => target => (target.prototype[symbolPrefix] = path)
 
 export const get = path => router({
     method: 'get',
-    path:path
+    path:path,
 })
 
 export const post = path => router({
     method: 'post',
-    path:path
+    path:path,
 })
 
 export const put = path => router({
     method: 'put',
-    path:path
+    path:path,
 })
 
 export const del = path => router({
     method: 'del',
-    path:path
+    path:path,
 })
 
 export const use = path => router({
     method: 'use',
-    path:path
+    path:path,
 })
 
 export const all = path => router({
     method: 'all',
-    path:path
+    path:path,
 })

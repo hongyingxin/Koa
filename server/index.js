@@ -1,24 +1,43 @@
 const Koa = require('koa')
 const mongoose = require('mongoose')
-const app = new Koa();
-const { connect ,initSchemas} = require('./database/init')
-const router = require('./routes')
-// const { normal} = require('./tpl')
+const { resolve } = require('path')
+const { connect, initSchemas } = require('./database/init')
+
+const R = require('ramda')
+const MIDDLEWARES = ['router']
+
+    // const router = require('./routes')
+    // const { normal} = require('./tpl')
 
 
-;(async () => {
-    await connect();
+    ; (async () => {
+        await connect();
 
-    initSchemas()
+        initSchemas()
 
-    // require('./tasks/movie')
-    require('./tasks/api')
-})()
+        // require('./tasks/movie')
+        // require('./tasks/api')
+    })()
+
+const useMiddlewares = (app) => {
+    R.map(
+        R.compose(
+            R.forEachObjIndexed(
+                initWith => initWith(app)
+            ),
+            require,
+            name => resolve(__dirname, `./middlewares/${name}`)
+        )
+    )(MIDDLEWARES)
+}
+
+async function start() {
+
+    const app = new Koa();
+    await useMiddlewares(app)
+    app.listen(8765)
+}
+
+start();
 
 
-app.use(async (ctx,next) => {
-    ctx.type = 'text/html; charset=utf-8'
-    ctx.body = '测试'
-})
-
-app.listen(8765)
