@@ -3,12 +3,10 @@
 
 const Router = require('koa-router')
 const {resolve} = require('path')
-const lodash = require('lodash')
+const _ = require('lodash')
 const glob = require('glob')
 
-const isArray = c => {
-    _.isArray(c)? c : [c]
-}
+const isArray = c => _.isArray(c)? c : [c]
 
 // Symbol
 
@@ -26,7 +24,7 @@ export class Route{
     }
 
     init(){
-        glob.sync(resolve(this.apiPath,'**/*.js')).forEach(require)
+        glob.sync(resolve(this.apiPath,'./**/*.js')).forEach(require)
 
         for(let [conf,controller] of routerMap){
             const controllers = isArray(controller)
@@ -35,7 +33,7 @@ export class Route{
                 prefixPath = normalizePath(prefixPath)
             }
             const routerPath = prefixPath + conf.path
-            this.router[conf.method(routerPath,...controllers)]
+            this.router[conf.method](routerPath,...controllers)
         }
 
         this.app.use(this.router.routes())
@@ -54,7 +52,7 @@ const router = conf => (target,key,descriptor) =>{
     },target[key])
 }
 
-const controller = path => target => (target.prototype[symbolPrefix] = path)
+export const controller = path => target => (target.prototype[symbolPrefix] = path)
 
 export const get = path => router({
     method: 'get',
