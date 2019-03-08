@@ -62,6 +62,7 @@ exports.connect = () => {
                 // })
 
                 resolve()
+                console.log("+++测试pm2+++")
                 console.log("数据库打开成功")
             })
         }

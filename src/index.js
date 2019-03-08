@@ -1,9 +1,7 @@
-import './assets/common.sass'
+import React from 'react'
+import { render } from 'react-dom'
+import {
+    BrowserRouter
+} from 'react-router-dom'
 
-function changeTitle(){
-    window.$('#app').html("Parcel打包")
-}
-
-setTimeout(function(){
-    changeTitle()
-},2000)
+const rootElement = document.getElementById('app')
