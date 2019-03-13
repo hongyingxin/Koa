@@ -4,7 +4,7 @@ const { resolve } = require('path')
 const { connect, initSchemas } = require('./database/init')
 
 const R = require('ramda')
-const MIDDLEWARES = ['router']
+const MIDDLEWARES = ['router','parcel']
 
     // const router = require('./routes')
     // const { normal} = require('./tpl')
