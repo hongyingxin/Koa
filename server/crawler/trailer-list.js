@@ -23,7 +23,7 @@ const sleep = time => new Promise(resolve => {
 
     await page.waitForSelector('.more')
 
-    for(let i = 0;i < 1; i++){
+    for(let i = 0;i < 20; i++){
         await sleep(3000)
         await page.click('.more');
     }
@@ -49,6 +49,8 @@ const sleep = time => new Promise(resolve => {
                 })
             })
         }
+
+        console.log("豆瓣" + links)
 
         return links
     })

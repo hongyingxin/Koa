@@ -37,6 +37,10 @@ const Movie = mongoose.model('Movie')
         let result = data.result
 
 
+        console.log("爬去电影的条数" + data.result.length)
+
+        let i = 0 ;  //插入电影的条数
+
         /*插入数据库*/ 
         result.forEach(async item => {
             /*根据id  查询一条*/
@@ -48,6 +52,7 @@ const Movie = mongoose.model('Movie')
             if(!movie){
                 movie = new Movie(item)
                 await movie.save()
+                i++;
             }
         })
     })
